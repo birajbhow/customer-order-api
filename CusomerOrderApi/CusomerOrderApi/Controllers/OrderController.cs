@@ -2,9 +2,6 @@
 using CustomerOrderApi.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CusomerOrderApi.Controllers
@@ -30,7 +27,7 @@ namespace CusomerOrderApi.Controllers
         public async Task<IActionResult> Get(OrderRequest orderRequest)
         {
             var customer = await _customerDetailsApiClient.GetCustomer(orderRequest.User);
-            if (customer == null)
+            if (customer == null || string.IsNullOrWhiteSpace(customer.CustomerId))
             {
                 return BadRequest("Invalid Request!");
             }
