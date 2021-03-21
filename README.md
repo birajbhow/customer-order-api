@@ -5,18 +5,18 @@ C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 
 ## How to run:
 
-1) Fork the solution
+1) Fork and download the code
 
 2) Open the solution in Visual Studio
 
-3) Run the solution
+3) Build & Run the solution
 
 4) It should open Swagger UI, which can be used to send requests to the API
 
 
 ## Before moving to production, below should be looked into,
 
-1) Add More Validations
+1) Add more validations
 
 2) Add more unit tests
 
