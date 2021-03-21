@@ -30,14 +30,11 @@ namespace CusomerOrderApi.Controllers
         public async Task<IActionResult> Get(OrderRequest orderRequest)
         {
             var customer = await _customerDetailsApiClient.GetCustomer(orderRequest.User);
-            if (string.IsNullOrWhiteSpace(customer.CustomerId))
-            {
-                return BadRequest("Customer not found!");
-            }
             if (customer == null)
             {
-                return Problem(detail: "Some Error Occurred", statusCode: 500);
+                return BadRequest("Invalid Request!");
             }
+            
             var customerOrder = _customerOrderService.GetOrder(customer);
             return Ok(customerOrder);
         }
