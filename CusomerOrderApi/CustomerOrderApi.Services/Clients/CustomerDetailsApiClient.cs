@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerOrderApi.DataAccess.Clients
+namespace CustomerOrderApi.Services.Clients
 {
     public class CustomerDetailsApiClient : ICustomerDetailsApiClient
     {
@@ -32,9 +32,19 @@ namespace CustomerOrderApi.DataAccess.Clients
         {
             try
             {
-                var customer = await BuildUrl(email).GetJsonAsync<Customer>();
+                var customer = new Customer();
 
-                _logger.LogDebug($"{nameof(CustomerDetailsApiClient)} Customer={customer}");
+                var response = await BuildUrl(email).GetAsync();
+                if (response.ResponseMessage.IsSuccessStatusCode)
+                {
+                    customer = await response.GetJsonAsync<Customer>();
+
+                    _logger.LogDebug($"{nameof(CustomerDetailsApiClient)} Customer={customer}");
+                } 
+                else
+                {
+                    _logger.LogInformation($"{nameof(CustomerDetailsApiClient)} Message={response.ResponseMessage}");
+                }
 
                 return customer;
             }

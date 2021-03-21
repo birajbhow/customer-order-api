@@ -1,6 +1,7 @@
 using CusomerOrderApi.Middleware;
 using CustomerOrderApi.Common.Interfaces;
-using CustomerOrderApi.DataAccess.Clients;
+using CustomerOrderApi.Services;
+using CustomerOrderApi.Services.Clients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +38,7 @@ namespace CusomerOrderApi
             });
 
             services.AddSingleton<ICustomerDetailsApiClient, CustomerDetailsApiClient>();
+            services.AddSingleton<ICustomerOrderService, CustomerOrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

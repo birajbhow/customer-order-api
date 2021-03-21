@@ -15,23 +15,31 @@ namespace CusomerOrderApi.Controllers
     {
         private readonly ILogger<OrderController> _logger;
         private readonly ICustomerDetailsApiClient _customerDetailsApiClient;
+        private readonly ICustomerOrderService _customerOrderService;
 
         public OrderController(ILogger<OrderController> logger,
-            ICustomerDetailsApiClient customerDetailsApiClient)
+            ICustomerDetailsApiClient customerDetailsApiClient,
+            ICustomerOrderService customerOrderService)
         {
             _logger = logger;
             _customerDetailsApiClient = customerDetailsApiClient;
+            _customerOrderService = customerOrderService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Get(OrderRequest orderRequest)
         {
             var customer = await _customerDetailsApiClient.GetCustomer(orderRequest.User);
-            if (customer == null)
+            if (string.IsNullOrWhiteSpace(customer.CustomerId))
             {
                 return BadRequest("Customer not found!");
             }
-            return Ok(new CustomerOrder());
+            if (customer == null)
+            {
+                return Problem(detail: "Some Error Occurred", statusCode: 500);
+            }
+            var customerOrder = _customerOrderService.GetOrder(customer);
+            return Ok(customerOrder);
         }
     }
 }
