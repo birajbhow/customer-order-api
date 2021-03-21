@@ -1,9 +1,9 @@
 # customer-order-api
 
-#Tech Stack:
+# Tech Stack:
 C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 
-#How to run:
+# How to run:
 
 ## Fork the solution
 
@@ -14,7 +14,7 @@ C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 ## It should open Swagger UI, which can be used to send requests to the API
 
 
-Before moving to production, below can be looked into,
+# Before moving to production, below should be looked into,
 
 ## Add More Validations
 
