@@ -1,3 +1,6 @@
+using CusomerOrderApi.Middleware;
+using CustomerOrderApi.Common.Interfaces;
+using CustomerOrderApi.DataAccess.Clients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +35,8 @@ namespace CusomerOrderApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CusomerOrderApi", Version = "v1" });
             });
+
+            services.AddSingleton<ICustomerDetailsApiClient, CustomerDetailsApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +47,10 @@ namespace CusomerOrderApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CusomerOrderApi v1"));
+            }
+            else
+            {
+                app.UseMiddleware<ErrorLoggingMiddleware>();                
             }
 
             app.UseHttpsRedirection();
