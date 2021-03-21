@@ -26,13 +26,13 @@ namespace CustomerOrderApi.Tests
             // arrange
             var customer = MockData.GetCustomer();
             var order = MockData.GetOrder();
-            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer.CustomerId)).Returns(order);
+            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer)).Returns(order);
 
             // act
             var result = subject.GetOrder(customer);
 
             // assert
-            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer.CustomerId), Times.Once);
+            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer), Times.Once);
             Assert.IsAssignableFrom<CustomerOrder>(result);
             Assert.IsNotNull(result.Customer);
             Assert.IsNotNull(result.Order);
@@ -45,13 +45,13 @@ namespace CustomerOrderApi.Tests
             // arrange
             var customer = MockData.GetCustomer();
             //var order = MockData.GetOrder();
-            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer.CustomerId)).Returns(() => null);
+            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer)).Returns(() => null);
 
             // act
             var result = subject.GetOrder(customer);
 
             // assert
-            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer.CustomerId), Times.Once);
+            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer), Times.Once);
             Assert.IsAssignableFrom<CustomerOrder>(result);
             Assert.IsNotNull(result.Customer);
             Assert.IsNull(result.Order);
@@ -63,13 +63,13 @@ namespace CustomerOrderApi.Tests
             // arrange
             var customer = MockData.GetCustomer();
             var order = MockData.GetOrder(gift: true);
-            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer.CustomerId)).Returns(order);
+            mockOrdersAccess.Setup(x => x.GetLatestOrder(customer)).Returns(order);
 
             // act
             var result = subject.GetOrder(customer);
 
             // assert
-            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer.CustomerId), Times.Once);
+            mockOrdersAccess.Verify(x => x.GetLatestOrder(customer), Times.Once);
             Assert.AreEqual("Gift", result.Order.OrderItems.First().Product);
         }
     }

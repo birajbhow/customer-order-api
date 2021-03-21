@@ -14,7 +14,7 @@ namespace CustomerOrderApi.Services
         public CustomerOrder GetOrder(Customer customer)
         {
             //return MockData.GetCustomerOrder(customer);
-            var order = _ordersAccess.GetLatestOrder(customer.CustomerId);
+            var order = _ordersAccess.GetLatestOrder(customer);
             return new CustomerOrder
             {
                 Customer = new Customer

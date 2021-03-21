@@ -24,4 +24,6 @@ Before moving to production, below can be looked into,
 
 ## Move the DB connection string and Api Key away from the config file
 
+## Update log provider and set logging and monitoring
+
 ## Add docker support

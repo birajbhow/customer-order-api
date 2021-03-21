@@ -14,20 +14,20 @@ namespace CustomerOrderApi.DataAccess.Access
             _dbContext = dbContext;
         }
 
-        public Order GetLatestOrder(string customerId)
+        public Order GetLatestOrder(Customer customer)
         {
             var orderEntity = _dbContext.Orders
                 .Include(o => o.Orderitems)
                 .ThenInclude(item => item.Product)
-                .Where(o => o.Customerid == customerId)
+                .Where(o => o.Customerid == customer.CustomerId)
                 .OrderByDescending(o => o.Orderdate)
                 .Take(1)
                 .SingleOrDefault();
 
-            return MapOrder(orderEntity);
+            return MapOrder(orderEntity, customer);
         }
 
-        private static Order MapOrder(Entities.Order orderEntity)
+        private static Order MapOrder(Entities.Order orderEntity, Customer customer)
         {
             if (orderEntity == null) return null;
 
@@ -35,7 +35,7 @@ namespace CustomerOrderApi.DataAccess.Access
             {
                 OrderNumber = orderEntity.Orderid,
                 OrderDate = orderEntity.Orderdate?.ToString("dd-MMM-yyyy"), 
-                DeliveryAddress = "Not available!",
+                DeliveryAddress = customer.Address,
                 DeliveryExpected = orderEntity.Deliveryexpected?.ToString("dd-MMM-yyyy"), 
                 OrderItems = orderEntity.Orderitems?
                                 .Select(item => new OrderItem
