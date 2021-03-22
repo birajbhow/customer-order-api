@@ -16,7 +16,7 @@ C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 
 ## Before moving to production, below should be looked into,
 
-1) Add more validations
+1) Enhance validations & http responses
 
 2) Add more unit tests
 
