@@ -24,7 +24,7 @@ C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 
 4) Move the DB connection string and Api Key away from the config file
 
-5) Update log provider and set logging and monitoring
+5) Update log provider and set logging, monitoring & diagnostics
 
 6) Add docker support
 
