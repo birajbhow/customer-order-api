@@ -27,3 +27,13 @@ C#, ASP.Net Core Web Api, EF Core, Swagger, Flurl, nUnit, Moq
 5) Update log provider and set logging and monitoring
 
 6) Add docker support
+
+## Specification Improvements
+
+1) Request parameters
+  * Rename user to email 
+  * Only one unique user id is sufficient 
+  
+2) Customer Details Api key should be posted with request header instead of query string
+
+3) The first restriction, "Where the user's email address does not match the customer number, you should treat this as an invalid request", doesn't seem correct. The email    address and customer id are different types and store different data, so not possible to compare them. It should be updated to match either email addresses or customer ids instead.
